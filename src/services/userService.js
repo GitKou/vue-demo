@@ -4,25 +4,25 @@ import xhr from './xhr/'
  */
 class UserService {
 
-    checkLogin() {
-        return xhr({ url: '/user' })
-    }
+  checkLogin() {
+    return xhr({ url: '/user' })
+  }
 
-    /**
-     * @param  {Object} userData
-     * @return {Promise}
-     */
-    login(userData) {
-        return xhr({
-            method: 'post',
-            url: '/login',
-            body: userData
-        })
-    }
+  /**
+   * @param  {Object} userData
+   * @return {Promise}
+   */
+  login(userData) {
+    return xhr({
+      method: 'post',
+      url: '/login',
+      body: userData
+    })
+  }
 
-    logout() {
-        return xhr({ url: '/logout' })
-    }
+  logout() {
+    return xhr({ url: '/logout' })
+  }
 
 }
 export default new UserService()

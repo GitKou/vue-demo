@@ -123,7 +123,7 @@ router-link{
     height: 80px;
     width: 273px;
     text-indent: -9999px;
-    background: url('/assets/logo.png') center no-repeat;
+    background: url('../../assets/logo.png') center no-repeat;
 }
 
 .g-nav ul,

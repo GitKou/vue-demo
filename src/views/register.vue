@@ -1,135 +1,142 @@
 <template>
-    <div class="m-register g-row">
-        <p class="title">注册详细信息填写</p>
-        <p class="subtitle">(所有信息均为必填)</p>
-        <form action="" class="m-form" id="regForm" method="post">
-            <div class="form-item">
-                <div class="u-input">
-                    <label for="cpName">企业名称</label>
-                    <div class="input-box z-error">
-                        <input id="cpName" type="text" placeholder="工商局注册名称">
-                        <span class="error"></span>
-                    </div>
-                </div>
-                <div class="u-input">
-                    <label for="cpNickname">企业昵称</label>
-                    <div class="input-box">
-                        <input id="cpNickname" type="text">
-                        <span class="error"></span>
-                        <p class="tips">提示：简短清晰的品牌露出，如顺丰速运</p>
-                    </div>
-                </div>
-                <div class="u-input">
-                    <label for="cpHomepage">官方主页</label>
-                    <div class="input-box">
-                        <input id="cpHomepage" type="text" placeholder="http://">
-                        <span class="error"></span>
-                        <p class="tips">提示：请输入完整的网址，如http(s)://www.163.com</p>
-                    </div>
-                </div>
-                <div class="u-input">
-                    <label for="cpLogo">企业logo</label>
-                    <div class="input-box u-upload">
-                        <input readonly type="text" placeholder="http://" filename>
-                        <input id="cpLogo" type="file">
-                        <span class="upload">上传文件</span>
-                        <span class="error"></span>
-                        <p class="tips">提示：仅支持jpg、jpeg格式；尺寸204*204像素，背景为白色</p>
-                    </div>
-                </div>
-                <div class="u-input">
-                    <label for="cpAddress">企业地址</label>
-                    <div class="input-box">
-                        <input id="cpAddress" type="text">
-                        <span class="error"></span>
-                    </div>
-                </div>
-                <div class="u-input">
-                    <label for="cpTel">企业电话</label>
-                    <div class="input-box">
-                        <input id="cpTel" type="text">
-                        <span class="error"></span>
-                    </div>
-                </div>
-                <div class="u-input">
-                    <label for="cpLicence">营业执照</label>
-                    <div class="input-box u-upload">
-                        <input readonly type="text" filename>
-                        <input id="cpLicence" type="file">
-                        <span class="upload">上传文件</span>
-                        <span class="error"></span>
-                        <p class="tips">提示：仅支持jpg、jpeg、png、pdf格式</p>
-                    </div>
-                </div>
-                <div class="u-input sp-input">
-                    <label for="cpCodeCert">组织机构代码证</label>
-                    <div class="input-box u-upload">
-                        <input readonly type="text" filename>
-                        <input id="cpCodeCert" type="file">
-                        <span class="upload">上传文件</span>
-                        <span class="error"></span>
-                        <p class="tips">提示：仅支持jpg、jpeg、png、pdf格式</p>
-                    </div>
-                </div>
-                <div class="u-input ">
-                    <label for="taxRegCert">税务登记证</label>
-                    <div class="input-box u-upload">
-                        <input readonly type="text" filename>
-                        <input id="taxRegCert" type="file">
-                        <span class="upload">上传文件</span>
-                        <span class="error"></span>
-                        <p class="tips">提示：仅支持jpg、jpeg、png、pdf格式</p>
-                    </div>
-                </div>
-            </div>
-            <div class="form-item">
-                <div class="u-input ">
-                    <label for="proposerName">申请人姓名</label>
-                    <div class="input-box">
-                        <input id="proposerName" type="text">
-                        <span class="error"></span>
-                    </div>
-                </div>
-                <div class="u-input ">
-                    <label for="proposerTel">申请人手机</label>
-                    <div class="input-box">
-                        <input id="proposerTel" type="text">
-                        <span class="error"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-submit ">
-                <div class="u-checkbox ">
-                    <input id="agree" type="checkbox" checked>
-                    <label for="agree">我已阅读并同意“<span class=" ">直接登录</span>”，接受该协议</label>
-                </div>
-                <p class="network z-neterror ">网络连接失败，请检查网络连接后重试</p>
-                <input type="submit" value="确认提交 " class="u-submit z-disabled ">
-            </div>
-        </form>
-       <!--  <validator name="validation">
-           <form novalidate>
-             <div class="username-field">
-               <label for="username">username:</label>
-               <input id="username" type="text" v-validate:username="['required']">
-             </div>
-             <div class="comment-field">
-               <label for="comment">comment:</label>
-               <input id="comment" type="text" v-validate:comment="{ maxlength: 256 }">
-             </div>
-             <div class="errors">
-               <p v-if="$validation.username.required">Required your name.</p>
-               <p v-if="$validation.comment.maxlength">Your comment is too long.</p>
-             </div>
-             <input type="submit" value="send" v-if="$validation.valid">
-           </form>
-         </validator> -->
-    </div>
+  <div class="m-register g-row">
+    <p class="title">注册详细信息填写</p>
+    <p class="subtitle">(所有信息均为必填)</p>
+    <form action="" class="m-form" id="regForm" method="post">
+      <div class="form-item">
+        <div class="u-input">
+          <label for="cpName">企业名称</label>
+          <div class="input-box z-error">
+            <input id="cpName" type="text" placeholder="工商局注册名称" v-model="regForm.cpName">
+            <span class="error"></span>
+          </div>
+        </div>
+        <div class="u-input">
+          <label for="cpNickname">企业昵称</label>
+          <div class="input-box">
+            <input id="cpNickname" type="text" v-model="regForm.cpNickname">
+            <span class="error"></span>
+            <p class="tips">提示：简短清晰的品牌露出，如顺丰速运</p>
+          </div>
+        </div>
+        <div class="u-input">
+          <label for="cpHomepage">官方主页</label>
+          <div class="input-box">
+            <input id="cpHomepage" type="text" placeholder="http://" v-model="regForm.cpHomepage">
+            <span class="error"></span>
+            <p class="tips">提示：请输入完整的网址，如http(s)://www.163.com</p>
+          </div>
+        </div>
+        <div class="u-input">
+          <label for="cpLogo">企业logo{{regForm.cpLogo}}</label>
+          <div class="input-box u-upload">
+            <input readonly type="text" filename v-model="regForm.cpLogo">
+            <input id="cpLogo" type="file" v-on:change="regForm.cpLogo = $event.target.files[0].name">
+            <span class="upload">上传文件</span>
+            <span class="error"></span>
+            <p class="tips">提示：仅支持jpg、jpeg格式；尺寸204*204像素，背景为白色</p>
+          </div>
+        </div>
+        <div class="u-input">
+          <label for="cpAddress">企业地址</label>
+          <div class="input-box">
+            <input id="cpAddress" type="text" v-model="regForm.cpAddress">
+            <span class="error"></span>
+          </div>
+        </div>
+        <div class="u-input">
+          <label for="cpTel">企业电话</label>
+          <div class="input-box">
+            <input id="cpTel" type="text" v-model="regForm.cpTel">
+            <span class="error"></span>
+          </div>
+        </div>
+        <div class="u-input">
+          <label for="cpLicence">营业执照</label>
+          <div class="input-box u-upload">
+            <input readonly type="text" filename v-model="regForm.cpLicence">
+            <input id="cpLicence" type="file" v-on:change="regForm.cpLicence = $event.target.files[0].name">
+            <span class="upload">上传文件</span>
+            <span class="error"></span>
+            <p class="tips">提示：仅支持jpg、jpeg、png、pdf格式</p>
+          </div>
+        </div>
+        <div class="u-input sp-input">
+          <label for="cpCodeCert">组织机构代码证</label>
+          <div class="input-box u-upload">
+            <input readonly type="text" filename v-model="regForm.cpCodeCert">
+            <input id="cpCodeCert" type="file" v-on:change="regForm.cpCodeCert = $event.target.files[0].name">
+            <span class="upload">上传文件</span>
+            <span class="error"></span>
+            <p class="tips">提示：仅支持jpg、jpeg、png、pdf格式</p>
+          </div>
+        </div>
+        <div class="u-input ">
+          <label for="taxRegCert">税务登记证</label>
+          <div class="input-box u-upload">
+            <input readonly type="text" filename v-model="regForm.taxRegCert">
+            <input id="taxRegCert" type="file" v-on:change="regForm.taxRegCert = $event.target.files[0].name">
+            <span class="upload">上传文件</span>
+            <span class="error"></span>
+            <p class="tips">提示：仅支持jpg、jpeg、png、pdf格式</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="u-input ">
+          <label for="proposerName">申请人姓名</label>
+          <div class="input-box">
+            <input id="proposerName" type="text" v-model="regForm.proposerName">
+            <span class="error"></span>
+          </div>
+        </div>
+        <div class="u-input ">
+          <label for="proposerTel">申请人手机</label>
+          <div class="input-box">
+            <input id="proposerTel" type="text" v-model="regForm.proposerTel">
+            <span class="error"></span>
+          </div>
+        </div>
+      </div>
+      <div class="form-submit ">
+        <div class="u-checkbox ">
+          <input id="agree" type="checkbox" checked>
+          <label for="agree">我已阅读并同意“<span class=" ">直接登录</span>”，接受该协议</label>
+        </div>
+        <p class="network z-neterror ">网络连接失败，请检查网络连接后重试</p>
+        <input value="确认提交 " class="u-submit z-disabled " @click="validateForm()">
+      </div>
+    </form>
+  </div>
 </template>
 <script type="text/javascript">
-
+  export default {
+    data() {
+      return {
+        regForm: {
+          cpName: '',
+          cpNickname: '',
+          cpHomepage: '',
+          cpLogo: '',
+          cpAddress: '',
+          cpTel: '',
+          cpLicence: '',
+          cpCodeCert: '',
+          taxRegCert: '',
+          proposerName: '',
+          proposerTel: ''
+        }
+      }
+    },
+    methods: {
+      validateForm() {
+        console.log('dsd');
+      }
+    }
+  }
 </script>>
 <style>
+
     /* m-register */
 
     .m-register {
@@ -241,7 +248,7 @@
 
     .input-box .error {
         position: absolute;
-        background: url('/assets/error.png');
+        background: url('../assets/error.png');
         width: 20px;
         height: 20px;
         top: 50%;
@@ -252,7 +259,7 @@
 
     .z-error .error{
         display: block;
-    } 
+    }
     .input-box .tips {
         font-size: 16px;
         line-height: 1;
@@ -298,13 +305,13 @@
     }
 
     .u-checkbox label {
-        background: url('/assets/unchecked.png') no-repeat;
+        background: url('../assets/unchecked.png') no-repeat;
         padding-left: 33px;
         color: #333;
     }
 
     .u-checkbox input[type="checkbox"]:checked + label {
-        background: url('/assets/checked.png') no-repeat;
+        background: url('../assets/checked.png') no-repeat;
     }
 
     .u-checkbox .notice {
