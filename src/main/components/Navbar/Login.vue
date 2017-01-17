@@ -8,7 +8,6 @@
     </ul>
 </template>
 <script>
-import userService from 'src/services/userService'
 
 export default {
     data() {
@@ -18,14 +17,7 @@ export default {
     },
     methods: {
         handleLogin() {
-            userService
-                .login({
-                    username: this.username
-                })
-                .then((userSessData) => {
-                    console.info('[LoginForm] 登录成功，立即设置 session 到 $root.userData')
-                    this.$emit('login', userSessData);
-                })
+
         }
     }
 }

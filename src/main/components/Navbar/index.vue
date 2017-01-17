@@ -7,8 +7,9 @@
                 </div>
                 <div class="g-nav">
                     <ul class="g-tab">
-                    	<li><router-link to="/security">安全规范</router-link></li>
+                    	<li><router-link to="/teaching-analysis">学情分析</router-link></li>
                     	<li><router-link to="/register">注册</router-link></li>
+                    	<li><router-link to="/shoppig-cart">购物车</router-link></li>
                     </ul>
                     <login v-if="!userData" @login="login"></login>
                     <logout v-if="userData" @logout="logout" :userData="userData"></logout>
@@ -20,7 +21,6 @@
 <script>
 import Login from './Login';
 import Logout from './Logout';
-import userService from 'src/services/userService'
 
 export default {
 	// 绝对私有的组件可以直接包含在父组件目录下
@@ -44,17 +44,7 @@ export default {
     // 组件创建之初就发送用户是否已登录的请求
     // 组件生命周期请参考 http://cn.vuejs.org/guide/instance.html
     created () {
-      console.info('[Navbar:XHR] 检测用户是否已经登录')
-      userService.checkLogin()
-        .then((userSessData) => {
-          if (!userSessData) {
-            return console.info('[Navbar] 检测完毕，当前用户尚未登录')
-          }
 
-          // 【手动】同步顶级变量与服务
-          console.info('[Navbar] 检测完毕，当前用户已经登录，立即设置 session 到 $root.userData')
-          this.userData = userSessData
-        })
     },
 }
 </script>
@@ -123,7 +113,8 @@ router-link{
     height: 80px;
     width: 273px;
     text-indent: -9999px;
-    background: url('../../assets/logo.png') center no-repeat;
+
+    background: url('~assets/logo.png') center no-repeat;
 }
 
 .g-nav ul,

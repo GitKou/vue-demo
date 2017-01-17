@@ -8,7 +8,7 @@
           <label for="cpName">企业名称</label>
           <div class="input-box z-error">
             <input id="cpName" type="text" placeholder="工商局注册名称" v-model="regForm.cpName">
-            <span class="error"></span>
+            <span class="error" v-show="!regForm.cpName"></span>
           </div>
         </div>
         <div class="u-input">
@@ -31,7 +31,7 @@
           <label for="cpLogo">企业logo{{regForm.cpLogo}}</label>
           <div class="input-box u-upload">
             <input readonly type="text" filename v-model="regForm.cpLogo">
-            <input id="cpLogo" type="file" v-on:change="regForm.cpLogo = $event.target.files[0].name">
+            <input id="cpLogo" type="file" @change="regForm.cpLogo = $event.target.files[0].name" accept="image/jpg, image/jpeg">
             <span class="upload">上传文件</span>
             <span class="error"></span>
             <p class="tips">提示：仅支持jpg、jpeg格式；尺寸204*204像素，背景为白色</p>
@@ -55,7 +55,8 @@
           <label for="cpLicence">营业执照</label>
           <div class="input-box u-upload">
             <input readonly type="text" filename v-model="regForm.cpLicence">
-            <input id="cpLicence" type="file" v-on:change="regForm.cpLicence = $event.target.files[0].name">
+            <!--<input id="cpLicence" type="file" @change="regForm.cpLicence = $event.target.files[0].name" accept="image/*">-->
+            <input id="cpLicence" type="file" @change="regForm.cpLicence = $event.target.files[0].name" accept="image/jpg, image/png, image/png, image/pdf">
             <span class="upload">上传文件</span>
             <span class="error"></span>
             <p class="tips">提示：仅支持jpg、jpeg、png、pdf格式</p>
@@ -65,7 +66,7 @@
           <label for="cpCodeCert">组织机构代码证</label>
           <div class="input-box u-upload">
             <input readonly type="text" filename v-model="regForm.cpCodeCert">
-            <input id="cpCodeCert" type="file" v-on:change="regForm.cpCodeCert = $event.target.files[0].name">
+            <input id="cpCodeCert" type="file" @change="regForm.cpCodeCert = $event.target.files[0].name" accept="image/jpg, image/jpeg, image/png, image/pdf">
             <span class="upload">上传文件</span>
             <span class="error"></span>
             <p class="tips">提示：仅支持jpg、jpeg、png、pdf格式</p>
@@ -75,7 +76,7 @@
           <label for="taxRegCert">税务登记证</label>
           <div class="input-box u-upload">
             <input readonly type="text" filename v-model="regForm.taxRegCert">
-            <input id="taxRegCert" type="file" v-on:change="regForm.taxRegCert = $event.target.files[0].name">
+            <input id="taxRegCert" type="file" @change="regForm.taxRegCert = $event.target.files[0].name" accept="image/jpg, image/jpeg, image/png, image/pdf">
             <span class="upload">上传文件</span>
             <span class="error"></span>
             <p class="tips">提示：仅支持jpg、jpeg、png、pdf格式</p>
@@ -130,12 +131,13 @@
     },
     methods: {
       validateForm() {
-        console.log('dsd');
+        console.log('表单验证');
       }
     }
   }
+
 </script>>
-<style>
+<style scoped>
 
     /* m-register */
 
@@ -248,7 +250,7 @@
 
     .input-box .error {
         position: absolute;
-        background: url('../assets/error.png');
+        background: url('~assets/error.png');
         width: 20px;
         height: 20px;
         top: 50%;

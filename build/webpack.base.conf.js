@@ -11,7 +11,7 @@ var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src/main/main.js'
   },
   output: {
     path: config.build.assetsRoot,
@@ -24,8 +24,12 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue',
       'src': path.resolve(__dirname, '../src'),
-      'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      'assets': path.resolve(__dirname, '../src/main/assets'),
+      'components': path.resolve(__dirname, '../src/main/components'),
+      'api': path.resolve(__dirname, '../src/main/api'),
+      'store': path.resolve(__dirname, '../src/main/store'),
+      'views': path.resolve(__dirname, '../src/main/views'),
+      'filters': path.resolve(__dirname, '../src/main/filters')
     }
   },
   resolveLoader: {

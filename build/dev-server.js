@@ -1,72 +1,44 @@
-require('./check-versions')()
-var config = require('../config')
-if (!process.env.NODE_ENV) process.env.NODE_ENV = config.dev.env
-var path = require('path')
-var express = require('express')
-var webpack = require('webpack')
-var opn = require('opn')
-var proxyMiddleware = require('http-proxy-middleware')
-var webpackConfig = require('./webpack.dev.conf')
+const path = require('path')
+const express = require('express');
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.dev.conf');
+const webpackDevMidWare = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const openurl = require('openurl');
 
-// default port where dev server listens for incoming traffic
-var port = process.env.PORT || config.dev.port
-// Define HTTP proxies to your custom API backend
-// https://github.com/chimurai/http-proxy-middleware
-var proxyTable = config.dev.proxyTable
-
-var app = express()
-var compiler = webpack(webpackConfig)
-
-var devMiddleware = require('webpack-dev-middleware')(compiler, {
-  publicPath: webpackConfig.output.publicPath,
+var port = 8090;
+var app = express();
+var complier = webpack(webpackConfig); //启动webpack进行编译
+// 启动 webpack-dev-middleware，将编译后的文件暂存到内存中
+var devMiddleware = webpackDevMidWare(complier, {
   stats: {
-    colors: true,
-    chunks: false
+    chunck: false,
+    colors: true
   }
 })
+var hotMiddleware = webpackHotMiddleware(complier);
+// 将暂存到内存中的 webpack 编译后的文件挂在到 express 服务上
+app.use(devMiddleware);
+// 将 Hot-reload 挂在到 express 服务上
+app.use(hotMiddleware);
 
-var hotMiddleware = require('webpack-hot-middleware')(compiler)
-// force page reload when html-webpack-plugin template changes
-compiler.plugin('compilation', function (compilation) {
-  compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({ action: 'reload' })
-    cb()
-  })
-})
+app.use('/xhr/', function (req, res, next) {
+    res.sendFile(path.join(__dirname, '../src/test/mock/xhr/.', req.path), {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }, function (err) {
+      if (err) {
+        console.log(err);
+        res.status(err.status).end();
+         next();
+      }
 
-// proxy api requests
-Object.keys(proxyTable).forEach(function (context) {
-  var options = proxyTable[context]
-  if (typeof options === 'string') {
-    options = { target: options }
-  }
-  app.use(proxyMiddleware(context, options))
-})
+    });
 
-// handle fallback for HTML5 history API
-app.use(require('connect-history-api-fallback')())
-
-// serve webpack bundle output
-app.use(devMiddleware)
-
-// enable hot-reload and state-preserving
-// compilation error display
-app.use(hotMiddleware)
-
-// serve pure static assets
-var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
-app.use(staticPath, express.static('./static'))
-
-module.exports = app.listen(port, function (err) {
-  if (err) {
-    console.log(err)
-    return
-  }
-  var uri = 'http://localhost:' + port
-  console.log('Listening at ' + uri + '\n')
-
-  // when env is testing, don't need open it
-  if (process.env.NODE_ENV !== 'testing') {
-    opn(uri)
-  }
-})
+});
+// express 服务监听 port 的请求
+app.listen(port, '', function () {
+  console.log('Listening at ' + port + '\n');
+  openurl.open('http://127.0.0.1:' + port + '/index.html');
+});
